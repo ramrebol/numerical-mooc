@@ -1,6 +1,5 @@
 Esto es una primera edición al archivo. Veremos qué pasa...  :)
 
-Esto es la segunda
 
 y tercera línea
 
