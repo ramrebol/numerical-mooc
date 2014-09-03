@@ -1,6 +1,6 @@
 Esto es una primera edición al archivo. Veremos qué pasa...  :)
 
-Segunda linea, ¿aparecerá?
+Segunda linea, ¿aparecerá?  ¿No aparece?
 
 y tercera línea
 
