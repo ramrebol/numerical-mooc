@@ -1,9 +1,3 @@
-Esto es una primera edición al archivo. Veremos qué pasa...  :)
-
-Segunda linea, ¿aparecerá?  ¿No aparece?
-
-y tercera línea
-
 #Practical Numerical Methods in Python
 
 A multi-campus, connected course (plus MOOC) on numerical methods for differential equations in science and engineering. Collaboratively developed by:
