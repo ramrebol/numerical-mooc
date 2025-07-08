@@ -1,0 +1,73 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      transportProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+phases (seawater hypersaline);
+
+seawater
+{
+    transportModel  Newtonian;
+    nu              1.05e-06;    // Viscosidad cinemática agua de mar (m²/s)
+    rho             1025;        // Densidad agua de mar (kg/m³)
+    Cp              3985;        // Calor específico (J/kg·K)
+    kappa           0.6;         // Conductividad térmica (W/m·K)
+    beta            2.1e-04;     // Coeficiente expansión térmica (1/K)
+    TRef            293.15;      // Temperatura de referencia (K)
+    
+    // Propiedades de sal
+    D               1.5e-09;     // Coeficiente de difusión de sal (m²/s)
+    kappaSalt       0.001;       // Difusividad turbulenta sal
+}
+
+hypersaline
+{
+    transportModel  Newtonian;
+    nu              1.8e-06;     // Viscosidad cinemática agua hipersalina (m²/s)
+    rho             1200;        // Densidad agua hipersalina (kg/m³) 
+    Cp              3800;        // Calor específico (J/kg·K)
+    kappa           0.65;        // Conductividad térmica (W/m·K)
+    beta            3.8e-04;     // Coeficiente expansión térmica (1/K)
+    TRef            293.15;      // Temperatura de referencia (K)
+    
+    // Propiedades de sal
+    D               1.2e-09;     // Coeficiente de difusión de sal (m²/s)
+    kappaSalt       0.001;       // Difusividad turbulenta sal
+}
+
+sigma           0.07;            // Tensión superficial (N/m)
+
+// Coeficientes de transferencia de masa
+interfaceCompression 1;
+
+// Propiedades térmicas para interMixingFoam
+thermalDiffusivity
+{
+    seawater        1.46e-07;    // Difusividad térmica (m²/s)
+    hypersaline     1.42e-07;    // Difusividad térmica (m²/s)
+}
+
+// Configuración de especies (concentración de sal)
+species
+{
+    salt
+    {
+        D_seawater      1.5e-09;     // Difusión molecular sal en agua de mar
+        D_hypersaline   1.2e-09;     // Difusión molecular sal en agua hipersalina
+        Sct             0.7;         // Número de Schmidt turbulento
+    }
+}
+
+// ************************************************************************* //

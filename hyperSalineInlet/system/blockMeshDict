@@ -1,0 +1,110 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1;
+
+vertices
+(
+    // Caja principal (agua de mar)
+    (0 0 0)         // 0
+    (5 0 0)         // 1
+    (5 2 0)         // 2
+    (0 2 0)         // 3
+    (0 0 1.5)       // 4
+    (5 0 1.5)       // 5
+    (5 2 1.5)       // 6
+    (0 2 1.5)       // 7
+    
+    // Entrada de tubería (agua hipersalina)
+    (4.5 -0.5 0.5)  // 8
+    (5.5 -0.5 0.5)  // 9
+    (5.5 0.5 0.5)   // 10
+    (4.5 0.5 0.5)   // 11
+    (4.5 -0.5 1.0)  // 12
+    (5.5 -0.5 1.0)  // 13
+    (5.5 0.5 1.0)   // 14
+    (4.5 0.5 1.0)   // 15
+);
+
+blocks
+(
+    // Caja principal
+    hex (0 1 2 3 4 5 6 7) (50 20 15) simpleGrading (1 1 1)
+    
+    // Tubería de entrada
+    hex (8 9 10 11 12 13 14 15) (10 10 5) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (8 12 15 11)  // Entrada de la tubería
+        );
+    }
+    
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (0 4 7 3)     // Salida en la cara izquierda
+        );
+    }
+    
+    walls
+    {
+        type wall;
+        faces
+        (
+            // Paredes de la caja principal
+            (1 5 4 0)     // Fondo
+            (3 7 6 2)     // Techo
+            (2 6 5 1)     // Cara derecha
+            (0 3 2 1)     // Cara inferior
+            (4 5 6 7)     // Cara superior
+            
+            // Paredes de la tubería
+            (8 9 13 12)   // Fondo tubería
+            (11 15 14 10) // Techo tubería
+            (9 10 14 13)  // Cara derecha tubería
+            (8 11 10 9)   // Cara inferior tubería
+            (12 13 14 15) // Cara superior tubería
+        );
+    }
+    
+    seaWater
+    {
+        type patch;
+        faces
+        (
+            (1 2 3 0)     // Interface con agua de mar
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
